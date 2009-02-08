@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:scrollbarStyle="insideOverlay" android:scrollbars="vertical">
+<LinearLayout android:id="@+id/LinearLayout02" android:layout_height="wrap_content" android:layout_width="fill_parent"><TextView android:id="@+id/TextView03" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_weight="50" android:text="@string/Stability"></TextView>
+</LinearLayout><LinearLayout android:id="@+id/LinearLayout02" android:layout_width="fill_parent" android:layout_height="20sp">
+
+
+
+
+<ProgressBar style="?android:attr/progressBarStyleHorizontal" android:id="@+id/ProgressBar01" android:layout_width="fill_parent" android:layout_weight="50" android:layout_height="fill_parent" android:max="20"></ProgressBar>
+</LinearLayout><LinearLayout android:id="@+id/LinearLayout01" android:layout_height="wrap_content" android:layout_width="fill_parent"><TextView android:id="@+id/TextView03" android:layout_height="wrap_content" android:layout_weight="50" android:layout_width="fill_parent" android:text="@string/Elapsed"></TextView><TextView android:id="@+id/TextView01" android:layout_height="wrap_content" android:layout_weight="50" android:layout_width="fill_parent" android:text="@string/BPM"></TextView><TextView android:id="@+id/TextView02" android:layout_height="wrap_content" android:layout_weight="50" android:layout_width="fill_parent" android:text="@string/Beatcount"></TextView>
+</LinearLayout>
+<LinearLayout android:layout_height="wrap_content" android:id="@+id/DisplayNode" android:layout_width="fill_parent"><EditText android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_weight="50" android:focusable="false" android:focusableInTouchMode="false" android:enabled="true" android:id="@+id/ElapsedBox" android:gravity="center_vertical|center_horizontal"></EditText><EditText android:numeric="integer|decimal" android:editable="false" android:layout_weight="50" android:layout_height="fill_parent" android:layout_gravity="bottom|fill_horizontal" android:id="@+id/BeatMonitorDisplay" android:layout_width="fill_parent" android:clickable="false" android:focusable="false" android:focusableInTouchMode="false" android:gravity="center_vertical|center_horizontal"></EditText><EditText android:layout_weight="50" android:layout_height="fill_parent" android:editable="false" android:layout_gravity="bottom|fill_horizontal" android:id="@+id/BeatCountDisplay" android:layout_width="fill_parent" android:clickable="false" android:focusable="false" android:focusableInTouchMode="false" android:gravity="center_vertical|center_horizontal"></EditText>
+
+
+
+</LinearLayout><LinearLayout android:id="@+id/LinearLayout02" android:layout_height="wrap_content" android:layout_width="fill_parent"><TextView android:id="@+id/TextView03" android:layout_height="wrap_content" android:layout_width="fill_parent" android:text="@string/Avgbeat"></TextView>
+
+</LinearLayout><LinearLayout android:id="@+id/LinearLayout03" android:layout_height="wrap_content" android:layout_width="fill_parent"><EditText android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/Avg10" android:focusable="false" android:focusableInTouchMode="false" android:layout_weight="25" android:gravity="center_vertical|center_horizontal"></EditText>
+<EditText android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/Avg15" android:focusable="false" android:focusableInTouchMode="false" android:layout_weight="25" android:gravity="center_vertical|center_horizontal"></EditText>
+<EditText android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/Avg20" android:focusable="false" android:focusableInTouchMode="false" android:layout_weight="25" android:gravity="center_vertical|center_horizontal"></EditText>
+<Button android:layout_gravity="fill_horizontal" android:layout_height="fill_parent" android:layout_width="fill_parent" android:clickable="true" android:id="@+id/ResetButton" android:layout_weight="25" android:text="@string/Reset"></Button></LinearLayout><LinearLayout android:gravity="bottom" android:layout_gravity="bottom" android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/CommandButtons">
+</LinearLayout><Button android:layout_gravity="left" android:layout_height="fill_parent" android:layout_weight="50" android:layout_width="fill_parent" android:clickable="true" android:id="@+id/BeatButton" android:text="@string/Beat" android:textSize="30sp"></Button>
+
+
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>

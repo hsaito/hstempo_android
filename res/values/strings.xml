@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, HSTempo</string>
+    <string name="app_name">HSTempo</string>
+<string name="Reset">Reset</string>
+<string name="Beat">Beat</string>
+<string name="Avgbeat">Average BPM (10, 15, 20 beats)</string>
+<string name="Elapsed">Elapsed (sec)</string>
+<string name="Stability">Stability</string>
+<string name="BPM">BPM</string>
+<string name="Beatcount">Beat Count</string>
+<string name="Audio">Audible Beat</string>
+<string name="Quit">Quit</string>
+<string name="About">About...</string>
+<string name="Maracas">Maracas Mode</string>
+
+
+
+<string name="VersionInfo">1.0.4 (November 12th, 2008)</string>
+<string name="app_info">HSTempo is an application that let you measure BPM of various beat by tapping to the beat.</string>
+<string name="recent_change">New in this version:\n- Stability Bar\n- Menu that enables you to quit this application.</string>
+<string name="AboutHeader">About HSTempo</string>
+<string name="DialogClose">Close</string>
+</resources>
