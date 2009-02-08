@@ -16,6 +16,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+/**
+ * Main class for HSTempo
+ * @author Hideki Saito
+ * @version 1.0.5
+ * @since 1.0.0
+ */
 public class HSTempo extends Activity {
 	private int beatcount = 0;
 	private int bpmvalue = 0;
@@ -34,7 +40,12 @@ public class HSTempo extends Activity {
     static final private int MARACAS_ID = Menu.FIRST + 4;
 
 	
-    /** Called when the activity is first created. */
+    /** Called when the activity is first created. 
+     * Initializes all necessary values here.
+     * @author Hideki Saito
+     * @version 1.0.5
+     * @since 1.0.0
+     * */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +99,12 @@ public class HSTempo extends Activity {
     boolean session_active = false;
     long starttime = 0;
     
+    /**
+     * Listen for beat button
+     * @author Hideki Saito
+     * @version 1.0.5
+     * @since 1.0.0
+     */
     private OnClickListener onBeatPress = new OnClickListener()
     {
         public void onClick(View v)
@@ -119,8 +136,7 @@ public class HSTempo extends Activity {
         		bpmvalue = (int) Math.round(bpmvalue_double);
         		beatcount++;
         	}
-        	
-
+        	// Finally, update the display.
         	UpdateDisplay();
         }
         
@@ -140,6 +156,12 @@ public class HSTempo extends Activity {
         }
      };
     
+     /**
+      * Updates display
+      * @author Hideki Saito
+      * @version 1.0.5
+      * @since 1.0.0
+      */
     protected void UpdateDisplay() {
     	EditText beatcountbox = (EditText) findViewById(R.id.BeatCountDisplay);
     	beatcountbox.setText(String.valueOf(beatcount));
@@ -208,6 +230,12 @@ public class HSTempo extends Activity {
     	StabilityBar.setProgress(20-stability);
 	};
 
+	/**
+	 * Listens for reset button.
+	 * @author Hideki Saito
+	 * @version 1.0.5
+	 * @since 1.0.0
+	 */
 	private OnClickListener onResetPress = new OnClickListener()
     {
     	public void onClick(View v)
@@ -218,6 +246,12 @@ public class HSTempo extends Activity {
     
     int start = 0;
 
+    /**
+     * Resets all the value
+     * @author Hideki Saito
+     * @version 1.0.5
+     * @since 1.0.0
+     */
     void resetAll()
     {
 		session_active = false;
@@ -248,6 +282,13 @@ public class HSTempo extends Activity {
     	StabilityBar.setProgress(0);
     }
     
+    
+    /**
+     * Specify contents for popup menu.
+     * @author Hideki Saito
+     * @version 1.0.5
+     * @since 1.0.3
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
