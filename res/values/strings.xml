@@ -16,7 +16,7 @@
 
 
 
-<string name="VersionInfo">1.0.4 (November 12th, 2008)</string>
+<string name="VersionInfo">1.0.5 (February 8th, 2009)</string>
 <string name="app_info">HSTempo is an application that let you measure BPM of various beat by tapping to the beat.</string>
 <string name="recent_change">New in this version:\n- Stability Bar\n- Menu that enables you to quit this application.</string>
 <string name="AboutHeader">About HSTempo</string>
