@@ -5,7 +5,7 @@
 <string name="Reset">Reset</string>
 <string name="Beat">Beat</string>
 <string name="Avgbeat">Average BPM (10, 15, 20 beats)</string>
-<string name="Elapsed">Elapsed (sec)</string>
+<string name="Elapsed">Elapsed</string>
 <string name="Stability">Stability</string>
 <string name="BPM">BPM</string>
 <string name="Beatcount">Beat Count</string>
@@ -16,9 +16,11 @@
 
 
 
-<string name="VersionInfo">1.0.5 (February 8th, 2009)</string>
+<string name="VersionInfo">1.0.6 Beta (February 9th, 2009)</string>
 <string name="app_info">HSTempo is an application that let you measure BPM of various beat by tapping to the beat.</string>
 <string name="recent_change">New in this version:\n- Stability Bar\n- Menu that enables you to quit this application.</string>
 <string name="AboutHeader">About HSTempo</string>
 <string name="DialogClose">Close</string>
+<string name="Interval">Interval</string>
+<string name="VersionSimple">1.0.6 Beta</string>
 </resources>

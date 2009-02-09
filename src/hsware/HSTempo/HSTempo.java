@@ -57,6 +57,7 @@ public class HSTempo extends Activity {
 	private int [] bpmhistory20;
 	private int bpmhistory20_pt;
 	private Handler mHandler = new Handler();
+	private long prev;
 
     static final private int AUDIO_ID = Menu.FIRST;
     static final private int RESET_ID = Menu.FIRST + 1;
@@ -142,6 +143,7 @@ public class HSTempo extends Activity {
         		Button resetbutton = (Button)findViewById(R.id.ResetButton);
         		resetbutton.setEnabled(true);
         		starttime = System.currentTimeMillis();
+        		prev = starttime;
 //        		atbeat = System.currentTimeMillis();
         		Log.i("Calc","Starttime is "+String.valueOf(starttime));
         		session_active = true;
@@ -153,11 +155,14 @@ public class HSTempo extends Activity {
         	else
         	{
         		double bpmvalue_double;
-        		bpmvalue_double = (double)((double)beatcount / (double)((System.currentTimeMillis() - starttime))*1000*60);
-//        		atbeat = System.currentTimeMillis();
+        		long atbeat = System.currentTimeMillis();
+        		bpmvalue_double = (double)((double)beatcount / (double)((atbeat - starttime))*1000*60);
         		Log.i("Calc","Beatcount is "+String.valueOf(bpmvalue_double));
-        		Log.i("Calc","Timeoffset is "+String.valueOf(System.currentTimeMillis() - starttime));
+        		Log.i("Calc","Timeoffset is "+String.valueOf(atbeat - starttime));
         		Log.i("Calc","BPM value is "+String.valueOf(bpmvalue));
+        		EditText interval = (EditText) findViewById(R.id.Interval);
+        		interval.setText(String.valueOf(atbeat - prev));
+        		prev = atbeat;
         		bpmvalue = (int) Math.round(bpmvalue_double);
         		beatcount++;
         	}
@@ -289,7 +294,11 @@ public class HSTempo extends Activity {
 
     	EditText elapsed = (EditText) findViewById(R.id.ElapsedBox);
     	elapsed.setText("0");
-//    	EditText fromlast = (EditText) findViewById(R.id.LastBeatBox);
+
+		EditText interval = (EditText) findViewById(R.id.Interval);
+		interval.setText("0");
+    	
+    	//    	EditText fromlast = (EditText) findViewById(R.id.LastBeatBox);
 //    	fromlast.setText("0");
         
     	for(int i = 0; i < 10; i++)

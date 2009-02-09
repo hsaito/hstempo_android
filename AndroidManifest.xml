@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="hsware.HSTempo"
-      android:versionName="1.0.5" android:versionCode="8">
+      android:versionCode="9" android:versionName="@string/VersionSimple">
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:enabled="true" android:persistent="false" android:allowClearUserData="false" android:allowTaskReparenting="false" android:debuggable="false" android:description="@string/app_info">
         <activity android:label="@string/app_name" android:name=".HSTempo">
             <intent-filter>
