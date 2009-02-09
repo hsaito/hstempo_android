@@ -354,7 +354,6 @@ public class HSTempo extends Activity {
             Dialog d = new Dialog(this);
             d.setContentView(R.layout.about);
             d.show();
-            
             return true;
         case RESET_ID:
     		resetAll();
