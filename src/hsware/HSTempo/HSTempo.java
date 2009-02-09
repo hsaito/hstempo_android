@@ -1,3 +1,9 @@
+/**
+ * HSTempo Main Code
+ * @since 1.0.0
+ * @author Hideki Saito
+ */
+
 package hsware.HSTempo;
 
 
