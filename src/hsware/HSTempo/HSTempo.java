@@ -92,33 +92,7 @@ public class HSTempo extends Activity {
     	EditText bpmcountbox = (EditText) findViewById(R.id.BeatMonitorDisplay);
     	bpmcountbox.setText(String.valueOf(bpmvalue));
     	
-    	bpmhistory10 = new int[10];
-    	for(int i = 0; i < 10; i++)
-    		bpmhistory10[i] = 0;
-    	bpmhistory15 = new int[15];
-    	for(int i = 0; i < 15; i++)
-    		bpmhistory15[i] = 0; 
-    	bpmhistory20 = new int[20];
-    	for(int i = 0; i < 20; i++)
-    		bpmhistory20[i] = 0;
-    	bpmhistory10_pt = 0;
-    	bpmhistory15_pt = 0;
-    	bpmhistory20_pt = 0;
-
-    	EditText elapsed = (EditText) findViewById(R.id.ElapsedBox);
-    	elapsed.setText("0");
-//    	EditText fromlast = (EditText) findViewById(R.id.LastBeatBox);
-//    	fromlast.setText("0");
-    	EditText bpm10 = (EditText) findViewById(R.id.Avg10);
-    	EditText bpm15 = (EditText) findViewById(R.id.Avg15);
-    	EditText bpm20 = (EditText) findViewById(R.id.Avg20);
-    	bpm10.setText("X");
-    	bpm15.setText("X");
-    	bpm20.setText("X");
-
-    	ProgressBar StabilityBar = (ProgressBar) findViewById(R.id.ProgressBar01);
-    	StabilityBar.setProgress(0);
-
+    	resetAll();
     }
     
     
@@ -289,6 +263,33 @@ public class HSTempo extends Activity {
 		beatcount = 0;
     	bpmvalue = 0;
     	starttime = 0;
+    	
+    	bpmhistory10 = new int[10];
+    	for(int i = 0; i < 10; i++)
+    		bpmhistory10[i] = 0;
+    	bpmhistory15 = new int[15];
+    	for(int i = 0; i < 15; i++)
+    		bpmhistory15[i] = 0; 
+    	bpmhistory20 = new int[20];
+    	for(int i = 0; i < 20; i++)
+    		bpmhistory20[i] = 0;
+    	bpmhistory10_pt = 0;
+    	bpmhistory15_pt = 0;
+    	bpmhistory20_pt = 0;
+
+//    	EditText fromlast = (EditText) findViewById(R.id.LastBeatBox);
+//    	fromlast.setText("0");
+    	EditText bpm10 = (EditText) findViewById(R.id.Avg10);
+    	EditText bpm15 = (EditText) findViewById(R.id.Avg15);
+    	EditText bpm20 = (EditText) findViewById(R.id.Avg20);
+    	bpm10.setText("X");
+    	bpm15.setText("X");
+    	bpm20.setText("X");
+
+    	ProgressBar StabilityBar = (ProgressBar) findViewById(R.id.ProgressBar01);
+    	StabilityBar.setProgress(0);
+    	
+    	
         Button resetbutton = (Button)findViewById(R.id.ResetButton);
         resetbutton.setEnabled(false);
 
@@ -312,8 +313,6 @@ public class HSTempo extends Activity {
     	bpmhistory20_pt = 0;
     	
     	UpdateDisplay();
-    	ProgressBar StabilityBar = (ProgressBar) findViewById(R.id.ProgressBar01);
-    	StabilityBar.setProgress(0);
     }
     
     
