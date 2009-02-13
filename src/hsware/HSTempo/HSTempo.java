@@ -39,6 +39,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 /**
@@ -58,12 +59,13 @@ public class HSTempo extends Activity {
 	private int bpmhistory20_pt;
 	private Handler mHandler = new Handler();
 	private long prev;
-
-    static final private int AUDIO_ID = Menu.FIRST;
+	private int stability;
+	
+    //static final private int AUDIO_ID = Menu.FIRST;
     static final private int RESET_ID = Menu.FIRST + 1;
     static final private int QUIT_ID = Menu.FIRST + 2;
     static final private int ABOUT_ID = Menu.FIRST + 3;
-    static final private int MARACAS_ID = Menu.FIRST + 4;
+    //static final private int MARACAS_ID = Menu.FIRST + 4;
 
 	
     /** Called when the activity is first created. 
@@ -94,7 +96,7 @@ public class HSTempo extends Activity {
     	
     	resetAll();
     }
-    
+        
     
     boolean session_active = false;
     long starttime = 0;
@@ -140,6 +142,9 @@ public class HSTempo extends Activity {
         		bpmvalue = (int) Math.round(bpmvalue_double);
         		beatcount++;
         	}
+        	ImageView light = (ImageView) findViewById(R.id.VBILamp);
+        	light.setImageResource(R.drawable.lamp_white);
+        	mHandler.postDelayed(VBItimeout, 20);
         	// Finally, update the display.
         	UpdateDisplay();
         }
@@ -160,6 +165,47 @@ public class HSTempo extends Activity {
         }
      };
     
+   private Runnable VBIupdate = new Runnable()
+   {
+	   public void run() {
+		   ImageView light = (ImageView) findViewById(R.id.VBILamp);
+		   if(bpmvalue != 0)
+		   {
+			   
+			   if(stability < 15)
+			   {
+				   light.setImageResource(R.drawable.lamp_green);
+			   }
+			   else
+			   {
+				   light.setImageResource(R.drawable.lamp_red);
+			   }
+		   
+			   long msfrombeat = (long)(((double)60/(double)bpmvalue)*1000);
+			   Log.i("VBI","Beat is "+msfrombeat);
+			   mHandler.removeCallbacks(VBItimeout);
+			   mHandler.removeCallbacks(VBIupdate); 
+			   mHandler.postDelayed(VBIupdate, msfrombeat);
+			   mHandler.postDelayed(VBItimeout, msfrombeat/10);
+		   }
+		   else
+		   {
+			   light.setImageResource(R.drawable.lamp_red);
+		   }
+	   }
+   };
+     
+   private Runnable VBItimeout = new Runnable()
+   {
+	 public void run()
+	 {
+		 mHandler.removeCallbacks(VBItimeout);
+		 ImageView light = (ImageView) findViewById(R.id.VBILamp);
+		 light.setImageResource(R.drawable.lamp_off);
+         mHandler.removeCallbacks(VBItimeout);
+	 }
+   };
+   
      /**
       * Updates display
       * @author Hideki Saito
@@ -229,9 +275,12 @@ public class HSTempo extends Activity {
     	else
     		bpm20.setText("X");
     	
-    	int stability = Math.abs(bpmvalue-(bpmtemp10+bpmtemp15+bpmtemp20)/3);
+    	stability = Math.abs(bpmvalue-(bpmtemp10+bpmtemp15+bpmtemp20)/3);
     	ProgressBar StabilityBar = (ProgressBar) findViewById(R.id.ProgressBar01);
     	StabilityBar.setProgress(20-stability);
+    	
+       	mHandler.removeCallbacks(VBIupdate);
+    	mHandler.postDelayed(VBIupdate, (long)(((double)bpmvalue/(double)60)*1000)); 
 	};
 
 	/**
@@ -311,7 +360,10 @@ public class HSTempo extends Activity {
     	bpmhistory10_pt = 0;
     	bpmhistory15_pt = 0;
     	bpmhistory20_pt = 0;
-    	
+    	mHandler.removeCallbacks(VBIupdate);
+    	mHandler.removeCallbacks(VBItimeout);
+    	ImageView light = (ImageView) findViewById(R.id.VBILamp);
+    	light.setImageResource(R.drawable.lamp_red);
     	UpdateDisplay();
     }
     
@@ -371,5 +423,14 @@ public class HSTempo extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    
+    @Override
+    public void onStop(){
+    	// Killing timer (they may eat up your battery)
+    	mHandler.removeCallbacks(autoUpdateDisp);
+    	mHandler.removeCallbacks(VBIupdate);
+    	mHandler.removeCallbacks(VBItimeout);
+    	super.onStop();
     }
 }
