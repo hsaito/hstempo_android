@@ -1,0 +1,3 @@
+Todo:
+* Make maracas mode (shake to get BPM)
+* Make intent for passing BPM to other app. (so if some music player want to get BPM, they can retrieve the result from HSTempo)
