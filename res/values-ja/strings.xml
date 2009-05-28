@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, HSTempo</string>
+    <string name="app_name">HSTempo</string>
+<string name="Reset">リセット</string>
+<string name="Beat">ビート</string>
+<string name="Avgbeat">平均BPM (10, 15, 20)</string>
+<string name="Elapsed">経過</string>
+<string name="Stability">安定性</string>
+<string name="BPM">BPM</string>
+<string name="Beatcount">カウント</string>
+<string name="Audio">発生ビート</string>
+<string name="Quit">終了</string>
+<string name="About">情報</string>
+<string name="Maracas">マラカスモード</string>
+
+
+
+<string name="VersionInfo">1.1 (May 27th, 2009)</string>
+<string name="app_info">HSTempoはタップすることによりBPMを計測するためのソフトです。</string>
+<string name="recent_change"></string>
+<string name="AboutHeader">HSTempoについて</string>
+<string name="DialogClose">閉じる</string>
+<string name="Interval">間隔</string>
+
+</resources>
