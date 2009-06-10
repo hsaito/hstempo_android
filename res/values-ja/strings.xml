@@ -16,7 +16,7 @@
 
 
 
-<string name="VersionInfo">1.1 (May 27th, 2009)</string>
+<string name="VersionInfo">1.2.0 (June 10th, 2009)</string>
 <string name="app_info">HSTempoはタップすることによりBPMを計測するためのソフトです。</string>
 <string name="recent_change"></string>
 <string name="AboutHeader">HSTempoについて</string>
