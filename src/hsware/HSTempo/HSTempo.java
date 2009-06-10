@@ -80,6 +80,8 @@ public class HSTempo extends Activity {
         setContentView(R.layout.main);
        
         // Listen for Beat Button Clicks
+        // Currently it listens for click event, which makes this a bit inaccurate.
+        // Fix is underway.
         Button beatbutton = (Button)findViewById(R.id.BeatButton);
         beatbutton.setOnClickListener(onBeatPress);
         
