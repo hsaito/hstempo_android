@@ -35,8 +35,10 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -83,7 +85,8 @@ public class HSTempo extends Activity {
         // Currently it listens for click event, which makes this a bit inaccurate.
         // Fix is underway.
         Button beatbutton = (Button)findViewById(R.id.BeatButton);
-        beatbutton.setOnClickListener(onBeatPress);
+        beatbutton.setOnTouchListener(onBeatPress);
+        beatbutton.setOnClickListener(onButtonRelease);
         
         // Listen for Reset Button Clicks
         Button resetbutton = (Button)findViewById(R.id.ResetButton);
@@ -101,7 +104,25 @@ public class HSTempo extends Activity {
         
     
     boolean session_active = false;
+    boolean accept_beat = true;
     long starttime = 0;
+    
+    
+    /**
+     * Listen for beat button release
+     * @author Hideki Saito
+     * @version 1.1.1
+     * @since 1.1.1
+     */
+    
+    private OnClickListener onButtonRelease = new OnClickListener()
+    {
+    	// Now the beat counts
+    	public void onClick(View v)
+    	{
+    		accept_beat = true;
+    	}
+    };
     
     /**
      * Listen for beat button
@@ -109,47 +130,53 @@ public class HSTempo extends Activity {
      * @version 1.0.5
      * @since 1.0.0
      */
-    private OnClickListener onBeatPress = new OnClickListener()
+    private OnTouchListener onBeatPress = new OnTouchListener()
     {
-        public void onClick(View v)
-        {
-            // To send a result, simply call setResult() before your
-            // activity is finished, building an Intent with the data
-            // you wish to send.
-        	if(session_active == false)
-        	{	
-        		Button resetbutton = (Button)findViewById(R.id.ResetButton);
-        		resetbutton.setEnabled(true);
-        		starttime = System.currentTimeMillis();
-        		prev = starttime;
-//        		atbeat = System.currentTimeMillis();
-        		Log.i("Calc","Starttime is "+String.valueOf(starttime));
-        		session_active = true;
-            	beatcount++;
-            	bpmvalue = 0;
-            	mHandler.removeCallbacks(autoUpdateDisp);
-                mHandler.postDelayed(autoUpdateDisp, 100);
-        	}
-        	else
-        	{
-        		double bpmvalue_double;
-        		long atbeat = System.currentTimeMillis();
-        		bpmvalue_double = (double)((double)beatcount / (double)((atbeat - starttime))*1000*60);
-        		Log.i("Calc","Beatcount is "+String.valueOf(bpmvalue_double));
-        		Log.i("Calc","Timeoffset is "+String.valueOf(atbeat - starttime));
-        		Log.i("Calc","BPM value is "+String.valueOf(bpmvalue));
-        		EditText interval = (EditText) findViewById(R.id.Interval);
-        		interval.setText(String.valueOf(atbeat - prev));
-        		prev = atbeat;
-        		bpmvalue = (int) Math.round(bpmvalue_double);
-        		beatcount++;
-        	}
-        	ImageView light = (ImageView) findViewById(R.id.VBILamp);
-        	light.setImageResource(R.drawable.lamp_white);
-        	mHandler.postDelayed(VBItimeout, 20);
-        	// Finally, update the display.
-        	UpdateDisplay();
-        }
+    	public boolean onTouch(View v, MotionEvent m)
+    	{
+    		if(accept_beat)
+    		{
+    			// To send a result, simply call setResult() before your
+    			// activity is finished, building an Intent with the data
+    			// you wish to send.
+    			if(session_active == false)
+    			{	
+    				Button resetbutton = (Button)findViewById(R.id.ResetButton);
+    				resetbutton.setEnabled(true);
+    				starttime = System.currentTimeMillis();
+    				prev = starttime;
+    				//        		atbeat = System.currentTimeMillis();
+    				Log.i("Calc","Starttime is "+String.valueOf(starttime));
+    				session_active = true;
+    				beatcount++;
+    				bpmvalue = 0;
+    				mHandler.removeCallbacks(autoUpdateDisp);
+    				mHandler.postDelayed(autoUpdateDisp, 100);
+    			}
+    			else
+    			{
+    				double bpmvalue_double;
+    				long atbeat = System.currentTimeMillis();
+    				bpmvalue_double = (double)((double)beatcount / (double)((atbeat - starttime))*1000*60);
+    				Log.i("Calc","Beatcount is "+String.valueOf(bpmvalue_double));
+    				Log.i("Calc","Timeoffset is "+String.valueOf(atbeat - starttime));
+    				Log.i("Calc","BPM value is "+String.valueOf(bpmvalue));
+    				EditText interval = (EditText) findViewById(R.id.Interval);
+    				interval.setText(String.valueOf(atbeat - prev));
+    				prev = atbeat;
+    				bpmvalue = (int) Math.round(bpmvalue_double);
+    				beatcount++;
+    			}
+    			ImageView light = (ImageView) findViewById(R.id.VBILamp);
+    			light.setImageResource(R.drawable.lamp_white);
+    			mHandler.postDelayed(VBItimeout, 20);
+    			// Finally, update the display.
+    			UpdateDisplay();
+    			accept_beat = false;
+    			return true;
+    		}
+    		return false;
+    	}
         
         
 
@@ -366,6 +393,7 @@ public class HSTempo extends Activity {
     	mHandler.removeCallbacks(VBItimeout);
     	ImageView light = (ImageView) findViewById(R.id.VBILamp);
     	light.setImageResource(R.drawable.lamp_red);
+    	accept_beat = true;
     	UpdateDisplay();
     }
     
