@@ -1,4 +1,16 @@
-/*.log
-/.settings
-/bin/*
-/src/hsware/HSTempo/R.java
+.settings
+.DS_Store
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+*.log
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
