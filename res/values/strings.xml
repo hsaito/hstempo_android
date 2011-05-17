@@ -23,5 +23,11 @@
 <string name="DialogClose">Close</string>
 <string name="Interval">Interval</string>
 <string name="Set">Set</string>
+<string name="beatsound">Sound</string>
+<string name="Intent">->I</string>
+<string name="Manual">Manual</string>
+<string name="Plus">+</string>
+<string name="Minus">-</string>
+<string name="Zero">0</string>
 
 </resources>
