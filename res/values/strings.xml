@@ -22,5 +22,6 @@
 <string name="AboutHeader">About HSTempo</string>
 <string name="DialogClose">Close</string>
 <string name="Interval">Interval</string>
+<string name="Set">Set</string>
 
 </resources>

@@ -98,6 +98,11 @@ public class HSTempo extends Activity {
     	EditText bpmcountbox = (EditText) findViewById(R.id.BeatMonitorDisplay);
     	bpmcountbox.setText(String.valueOf(bpmvalue));
     	
+    	EditText beatmonitordisplay = (EditText) findViewById(R.id.BeatMonitorDisplay);
+    	beatmonitordisplay.setOnTouchListener(onBPMPress);
+    	
+    	
+    	
     	resetAll();
     }
         
@@ -170,6 +175,71 @@ public class HSTempo extends Activity {
     		if(m.getAction() == MotionEvent.ACTION_DOWN)
     		{
     			pressEvent(v);
+    			return true;
+    		}
+    		return false;
+    	}
+    };
+    
+    /**
+     * Function to handle BPM manual setting
+     * @author Hideki Saito
+     * @version 1.2.2.2
+     * @since 1.2.2.2
+     */
+    
+    private OnTouchListener onBPMPress = new OnTouchListener()
+    {
+    	public boolean onTouch(View v, MotionEvent m)
+    	{
+    		if(m.getAction() == MotionEvent.ACTION_DOWN)
+    		{
+    			BPMpressEvent(v);
+    			return true;
+    		}
+    		return false;
+    	}
+    };
+    
+    /**
+     * BPM press event
+     * @author Hideki Saito
+     * @version 1.2.2.2
+     * @since 1.2.2.2
+     */
+    
+   
+    private boolean BPMpressEvent(View v)
+    {
+    	if(session_active == false)
+    	{
+    		Dialog d = new Dialog(this);
+            d.setContentView(R.layout.bpm_manual_input);
+            Button setbpmbutton = (Button)findViewById(R.id.setBPMButton);
+           
+            d.show();
+    		return true;
+    	}
+    	else
+    	{
+    		return true;
+    	}
+    };
+    
+    /**
+     * BPM press event
+     * @author Hideki Saito
+     * @version 1.2.2.2
+     * @since 1.2.2.2
+     */
+    
+    private OnTouchListener onBPMSet = new OnTouchListener()
+    {
+    	public boolean onTouch(View v, MotionEvent m)
+    	{
+    		if(m.getAction() == MotionEvent.ACTION_DOWN)
+    		{
+    			
     			return true;
     		}
     		return false;
