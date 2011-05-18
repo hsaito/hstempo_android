@@ -24,9 +24,9 @@
 
 package hsware.HSTempo;
 
+import hsware.HSTempo.about;
 import android.app.Activity;
-//import android.app.AlertDialog;
-import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -41,10 +41,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.ToggleButton;
 
 /**
  * Main class for HSTempo
@@ -79,7 +77,7 @@ public class HSTempo extends Activity {
 	 * values here.
 	 * 
 	 * @author Hideki Saito
-	 * @version 1.0.5
+	 * @version 1.2.2.2
 	 * @since 1.0.0
 	 * */
 	@Override
@@ -113,6 +111,9 @@ public class HSTempo extends Activity {
 
 		EditText bpminputfield = (EditText) findViewById(R.id.bpmInputField);
 		bpminputfield.setOnEditorActionListener(onBPMChange);
+
+		Button bpmsetbutton = (Button) findViewById(R.id.setBPMButton);
+		bpmsetbutton.setOnTouchListener(onBPMSet);
 
 		resetAll();
 	}
@@ -175,6 +176,7 @@ public class HSTempo extends Activity {
 	};
 
 	boolean session_active = false;
+	boolean session_active_manual = false;
 	boolean accept_beat = true;
 	long starttime = 0;
 
@@ -286,17 +288,33 @@ public class HSTempo extends Activity {
 	 */
 
 	private boolean BPMpressEvent(View v) {
+		EditText bpmdisplay = (EditText) findViewById(R.id.BeatMonitorDisplay);
 		if (session_active == false) {
 			session_active = true;
+			session_active_manual = true;
 			findViewById(R.id.BeatButton).setEnabled(false);
 			findViewById(R.id.ResetButton).setEnabled(true);
 
 			ImageView light = (ImageView) findViewById(R.id.VBILamp);
 			light.setImageResource(R.drawable.lamp_green);
 			mHandler.postDelayed(VBItimeout, 20);
-
+			starttime = System.currentTimeMillis();
+			bpmvalue = manualBPM;
+			bpmdisplay.setText(String.valueOf(manualBPM));
+			bpmvalue = manualBPM;
+			mHandler.postDelayed(autoUpdateDisp, 100);
+			mHandler.postDelayed(VBItimeout, 20);
+			mHandler.postDelayed(manualBPMUpdate, 20);
+			UpdateDisplayManual();
 			return true;
 		} else {
+			if (session_active_manual == true) {
+				bpmdisplay.setText(String.valueOf(manualBPM));
+				bpmvalue = manualBPM;
+				mHandler.postDelayed(VBItimeout, 20);
+				mHandler.postDelayed(manualBPMUpdate, 20);
+				UpdateDisplayManual();
+			}
 			return true;
 		}
 	};
@@ -312,7 +330,7 @@ public class HSTempo extends Activity {
 	private OnTouchListener onBPMSet = new OnTouchListener() {
 		public boolean onTouch(View v, MotionEvent m) {
 			if (m.getAction() == MotionEvent.ACTION_DOWN) {
-
+				BPMpressEvent(v);
 				return true;
 			}
 			return false;
@@ -364,6 +382,24 @@ public class HSTempo extends Activity {
 			ImageView light = (ImageView) findViewById(R.id.VBILamp);
 			light.setImageResource(R.drawable.lamp_off);
 			mHandler.removeCallbacks(VBItimeout);
+		}
+	};
+
+	/**
+	 * Updates display
+	 * 
+	 * @author Hideki Saito
+	 * @version 1.2.2.2
+	 * @since 1.2.2.2
+	 */
+
+	private Runnable manualBPMUpdate = new Runnable() {
+		public void run() {
+			long msfrombeat = (long) (((double) 60 / (double) bpmvalue) * 1000);
+			mHandler.removeCallbacks(manualBPMUpdate);
+			mHandler.postDelayed(manualBPMUpdate, msfrombeat);
+			beatcount++;
+			UpdateDisplay();
 		}
 	};
 
@@ -432,6 +468,35 @@ public class HSTempo extends Activity {
 
 		stability = Math
 				.abs(bpmvalue - (bpmtemp10 + bpmtemp15 + bpmtemp20) / 3);
+		ProgressBar StabilityBar = (ProgressBar) findViewById(R.id.ProgressBar01);
+		StabilityBar.setProgress(20 - stability);
+
+		mHandler.removeCallbacks(VBIupdate);
+		mHandler.postDelayed(VBIupdate,
+				(long) (((double) bpmvalue / (double) 60) * 1000));
+	};
+
+	/**
+	 * Updates display for manual
+	 * 
+	 * @author Hideki Saito
+	 * @version 1.2.2.2
+	 * @since 1.2.2.2
+	 */
+	protected void UpdateDisplayManual() {
+		EditText beatcountbox = (EditText) findViewById(R.id.BeatCountDisplay);
+		beatcountbox.setText(String.valueOf(beatcount));
+		EditText bpmcountbox = (EditText) findViewById(R.id.BeatMonitorDisplay);
+		bpmcountbox.setText(String.valueOf(bpmvalue));
+
+		EditText bpm10 = (EditText) findViewById(R.id.Avg10);
+		bpm10.setText("M");
+		EditText bpm15 = (EditText) findViewById(R.id.Avg15);
+		bpm15.setText("M");
+		EditText bpm20 = (EditText) findViewById(R.id.Avg20);
+		bpm20.setText("M");
+
+		stability = 20;
 		ProgressBar StabilityBar = (ProgressBar) findViewById(R.id.ProgressBar01);
 		StabilityBar.setProgress(20 - stability);
 
@@ -562,6 +627,7 @@ public class HSTempo extends Activity {
 		menu.add(0, RESET_ID, 0, R.string.Reset).setShortcut('1', 'c');
 		menu.add(0, QUIT_ID, 0, R.string.Quit).setShortcut('2', 'q');
 		menu.add(0, ABOUT_ID, 0, R.string.About).setShortcut('3', 'v');
+
 		// menu.add(0, MARACAS_ID, 0, R.string.Maracas).setShortcut('4','m');
 
 		return true;
@@ -586,11 +652,11 @@ public class HSTempo extends Activity {
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+
 		switch (item.getItemId()) {
 		case ABOUT_ID:
-			Dialog d = new Dialog(this);
-			d.setContentView(R.layout.about);
-			d.show();
+			item.setIntent(new Intent(this, about.class));
+			startActivity(item.getIntent());
 			return true;
 		case RESET_ID:
 			resetAll();

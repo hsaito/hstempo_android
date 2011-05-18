@@ -9,6 +9,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="about" android:windowSoftInputMode="stateAlwaysHidden"></activity>
     </application>
 <uses-sdk android:minSdkVersion="4"></uses-sdk>
 </manifest> 
