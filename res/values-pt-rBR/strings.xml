@@ -1,0 +1,26 @@
+<resources>
+<script/>
+<string name="hello">Olá Mundo, HSTempo</string>
+<string name="app_name">HSTempo</string>
+<string name="Reset">Restaurar</string>
+<string name="Beat">Batida</string>
+<string name="Avgbeat">BPM Médio (10, 15, 20 batidas)</string>
+<string name="Elapsed">Decorrido</string>
+<string name="Stability">Estabilidade</string>
+<string name="BPM">BPM</string>
+<string name="Beatcount">Contagem de Batidas</string>
+<string name="Audio">Batida Audível</string>
+<string name="Quit">Sair</string>
+<string name="About">Sobre...</string>
+<string name="Maracas">Modo Maracas</string>
+<string name="VersionInfo">1.2.1.1 (May 15th, 2011)</string>
+<string name="app_info">
+O HSTempo é um aplicativo que permite você medir o BPM de diversas batidas, batendo conforme a batida.
+</string>
+<string name="recent_change">
+Novo nessa versão:\n- Barra de Estabilidade\n- Menu que possibilita sair desse aplicativo.
+</string>
+<string name="AboutHeader">Sobre o HSTempo</string>
+<string name="DialogClose">Fechar</string>
+<string name="Interval">Intervalo</string>
+</resources>
